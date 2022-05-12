@@ -22,7 +22,7 @@ client.connect(err => {
     const adminCollection = client.db("creativeAgency").collection("admin");
    
 
-    app.post("/addOrder", cors(),(req, res) =>{
+    app.post("/addOrder", (req, res) =>{
       
       const file = req.files.file;
       const name = req.body.name;
@@ -50,7 +50,7 @@ client.connect(err => {
 
       })
 
-    app.get('/order', cors(),(req, res) => {
+    app.get('/order', (req, res) => {
       orderCollection.find({email: req.query.email})
       .toArray((err, documents)=>{
         res.send(documents);
@@ -59,14 +59,14 @@ client.connect(err => {
     })
 
 
-    app.get('/services', cors(), (req, res) =>{
+    app.get('/services',  (req, res) =>{
         serviceCollection.find({})
         .toArray((err, documents) =>{
             res.send(documents);
         })
     })
 
-    app.post('/addService', cors(), (req, res) => {
+    app.post('/addService',  (req, res) => {
       const file = req.files.file;
       const title = req.body.title;
       const description = req.body.description;
@@ -89,14 +89,14 @@ client.connect(err => {
 })
 
 
-app.get('/serviceList', cors(), (req, res) => {
+app.get('/serviceList',  (req, res) => {
   orderCollection.find({})
   .toArray( (err, documents) => {
     res.send(documents);
   })
 })
 
-app.patch('/update/:id',cors(), (req, res) =>{
+app.patch('/update/:id', (req, res) =>{
 
     console.log(req.params.id , req.body.e)
    orderCollection.updateOne({_id: ObjectId(req.params.id)},
@@ -112,7 +112,7 @@ app.patch('/update/:id',cors(), (req, res) =>{
     })
 
 
-app.post('/addReview',cors(), (req, res) => {
+app.post('/addReview',(req, res) => {
   
   const name = req.body.name;
   const designation= req.body.designation;
@@ -127,14 +127,14 @@ app.post('/addReview',cors(), (req, res) => {
       })
 })
 
-app.get('/reviews',cors(), (req, res)=>{
+app.get('/reviews', (req, res)=>{
   reviewCollection.find({}).limit(6)
   .toArray((err, documents)=>{
     res.send(documents);
   })
 })
 
-app.post('/isAdmin',cors(), (req, res) => {
+app.post('/isAdmin', (req, res) => {
   const email = req.body.email;
   adminCollection.find({ email: email })
       .toArray((err, admins) => {
@@ -142,7 +142,7 @@ app.post('/isAdmin',cors(), (req, res) => {
       })
 })
 
-app.post('/addAdmin',cors(), (req, res)=>{
+app.post('/addAdmin', (req, res)=>{
   const email = req.body.email;
 
   adminCollection.insertOne({ email})
@@ -154,7 +154,7 @@ app.post('/addAdmin',cors(), (req, res)=>{
 })
 
 
-app.get('/',cors(), (req, res) => {
+app.get('/', (req, res) => {
     res.send('Hello World!')
   })
 

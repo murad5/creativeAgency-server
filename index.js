@@ -5,15 +5,19 @@ const fileUpload = require('express-fileupload');
 const fs = require('fs-extra')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.us2jj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 require('dotenv').config()
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(fileUpload());
+app.use(express.json());
+
+const dbUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.us2jj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+
+
+const client = new MongoClient(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect(err => {
     const serviceCollection = client.db("creativeAgency").collection("services");
@@ -21,7 +25,12 @@ client.connect(err => {
     const orderCollection = client.db("creativeAgency").collection("orders");
     const adminCollection = client.db("creativeAgency").collection("admin");
    
+<<<<<<< HEAD
+  
+  
+=======
 
+>>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
     app.post("/addOrder", (req, res) =>{
       
       const file = req.files.file;
@@ -50,7 +59,11 @@ client.connect(err => {
 
       })
 
+<<<<<<< HEAD
+    app.get('/order',(req, res) => {
+=======
     app.get('/order', (req, res) => {
+>>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
       orderCollection.find({email: req.query.email})
       .toArray((err, documents)=>{
         res.send(documents);
@@ -59,14 +72,22 @@ client.connect(err => {
     })
 
 
+<<<<<<< HEAD
+    app.get('/services', (req, res) =>{
+=======
     app.get('/services',  (req, res) =>{
+>>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
         serviceCollection.find({})
         .toArray((err, documents) =>{
             res.send(documents);
         })
     })
 
+<<<<<<< HEAD
+    app.post('/addService', (req, res) => {
+=======
     app.post('/addService',  (req, res) => {
+>>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
       const file = req.files.file;
       const title = req.body.title;
       const description = req.body.description;
@@ -112,7 +133,11 @@ app.patch('/update/:id', (req, res) =>{
     })
 
 
+<<<<<<< HEAD
+app.post('/addReview', (req, res) => {
+=======
 app.post('/addReview',(req, res) => {
+>>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
   
   const name = req.body.name;
   const designation= req.body.designation;
@@ -158,4 +183,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
   })
 
-  app.listen(process.env.PORT||port )
+  app.listen(process.env.PORT||port,()=>{
+    console.log('running', port)
+  } )

@@ -25,12 +25,7 @@ client.connect(err => {
     const orderCollection = client.db("creativeAgency").collection("orders");
     const adminCollection = client.db("creativeAgency").collection("admin");
    
-<<<<<<< HEAD
-  
-  
-=======
 
->>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
     app.post("/addOrder", (req, res) =>{
       
       const file = req.files.file;
@@ -58,12 +53,8 @@ client.connect(err => {
       
 
       })
+app.get('/order', (req, res) => {
 
-<<<<<<< HEAD
-    app.get('/order',(req, res) => {
-=======
-    app.get('/order', (req, res) => {
->>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
       orderCollection.find({email: req.query.email})
       .toArray((err, documents)=>{
         res.send(documents);
@@ -72,22 +63,17 @@ client.connect(err => {
     })
 
 
-<<<<<<< HEAD
-    app.get('/services', (req, res) =>{
-=======
+
     app.get('/services',  (req, res) =>{
->>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
+
         serviceCollection.find({})
         .toArray((err, documents) =>{
             res.send(documents);
         })
     })
 
-<<<<<<< HEAD
-    app.post('/addService', (req, res) => {
-=======
     app.post('/addService',  (req, res) => {
->>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
+
       const file = req.files.file;
       const title = req.body.title;
       const description = req.body.description;
@@ -133,11 +119,8 @@ app.patch('/update/:id', (req, res) =>{
     })
 
 
-<<<<<<< HEAD
-app.post('/addReview', (req, res) => {
-=======
 app.post('/addReview',(req, res) => {
->>>>>>> 92199c5523773a07c2c94459f16441916c347a7e
+
   
   const name = req.body.name;
   const designation= req.body.designation;
@@ -186,3 +169,5 @@ app.get('/', (req, res) => {
   app.listen(process.env.PORT||port,()=>{
     console.log('running', port)
   } )
+
+  module.exports = app;
